@@ -19,7 +19,6 @@ def read_data():
     return user_action, feed_info, feed_emd
 
 
-
 if __name__ == "__main__":
     user, feed, feed_emd = read_data()
     print(user.head())

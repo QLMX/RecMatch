@@ -1,19 +1,9 @@
-# DeepMatchZoo
-DeepMatchZoo is the match part of the recommended system and the advertising system, constantly updated with the latest models
+# DeepRecall
+DeepRecall is the reall part of the recommended system and the advertising system, constantly updated with the latest models
 
 ### 1. 数据集
 
-数据集采用的是微信视频号举办的比赛数据，[地址](https://algo.weixin.qq.com/)
-
-[数据介绍](https://algo.weixin.qq.com/problem-description)：
-
-* Feed表
-
-![image-20210823004723261](https://tva1.sinaimg.cn/large/008i3skNgy1gtq1v1mh2bj61a40u0dlm02.jpg)
-
-用户行为表：
-
-![image-20210823005059745](https://tva1.sinaimg.cn/large/008i3skNgy1gtq1upgz9mj619g0pkacr02.jpg)
+样例使用的是Movielens_20M数据集，[下载地址](http://files.grouplens.org/datasets/movielens/ml-20m.zip)。
 
 ### 2. 模型
 
