@@ -35,6 +35,7 @@ MANIFEST
 
 # pycharm tools
 .idea
+.DS_Store
 
 # Installer logs
 pip-log.txt
