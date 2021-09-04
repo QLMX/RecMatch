@@ -8,8 +8,10 @@ import os
 import numpy as np
 from tensorflow.python.keras.models import Model, load_model, save_model
 
-from deeprecall.layers import custom_objects
-from deeprecall.feature_column import SparseFeat, VarLenSparseFeat
+from match.layers import custom_objects
+from match.feature_column import SparseFeat, VarLenSparseFeat
+from tests.data_loader import read_data, encode_data, gen_data_set, gen_model_input
+
 
 
 def check_model(model, model_name, x, y, check_model_io=True):
@@ -82,3 +84,22 @@ def get_xy_fd(hash_flag=False):
     x = feature_dict
     y = np.array([1, 1, 1, 1])
     return x, y, user_feature_columns, item_feature_columns
+
+def get_ml1_data(SEQ_LEN=50, embedding_dim=32):
+    data = read_data()
+    data, user_profile, item_profile, user_item_list, feature_max_idx = encode_data(data)
+    train_set, test_set = gen_data_set(data, 10)
+    train_data = gen_model_input(train_set, user_profile, 50)
+    test_data = gen_model_input(test_set, user_profile, 50)
+
+    user_feature_columns = [SparseFeat('user_id', feature_max_idx['user_id'], 16),
+                            SparseFeat("gender", feature_max_idx['gender'], 16),
+                            SparseFeat("age", feature_max_idx['age'], 16),
+                            SparseFeat("occupation", feature_max_idx['occupation'], 16),
+                            SparseFeat("zip", feature_max_idx['zip'], 16),
+                            VarLenSparseFeat(SparseFeat('hist_movie_id', feature_max_idx['movie_id'], embedding_dim,
+                                                        embedding_name="movie_id"), SEQ_LEN, 'mean', 'hist_len'),
+                            ]
+
+    item_feature_columns = [SparseFeat('movie_id', feature_max_idx['movie_id'], embedding_dim)]
+    return train_data, test_data, user_feature_columns, item_feature_columns

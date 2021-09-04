@@ -7,7 +7,7 @@
 import tensorflow as tf
 from tensorflow.python.keras.layers import LSTM, Lambda, Layer
 
-from deeprecall.layers.utils import reduce_sum, reduce_max, div, softmax, reduce_mean
+from match.layers.utils import reduce_sum, reduce_max, div, softmax, reduce_mean
 
 
 

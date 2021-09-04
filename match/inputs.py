@@ -9,10 +9,10 @@ from tensorflow.python.keras.regularizers import l2
 from itertools import chain
 from collections import defaultdict
 
-from deeprecall.feature_column import SparseFeat, VarLenSparseFeat
-from deeprecall.layers.utils import Hash
-from deeprecall import feature_column as fc_lib
-from deeprecall.layers.sequence import SequencePoolingLayer, WeightedSequenceLayer
+from match.feature_column import SparseFeat, VarLenSparseFeat
+from match.layers.utils import Hash
+from match import feature_column as fc_lib
+from match.layers.sequence import SequencePoolingLayer, WeightedSequenceLayer
 
 
 

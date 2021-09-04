@@ -7,11 +7,11 @@
 from tensorflow.python.keras.layers import Lambda
 from tensorflow.python.keras.models import Model
 
-from deeprecall.feature_column import build_input_features
-from deeprecall.layers.core import PredictionLayer
-from deeprecall.layers.utils import concat_func, reduce_sum
-from deeprecall.inputs import create_embedding_matrix, input_from_feature_columns
-from deeprecall.layers.core import Similarity
+from match.feature_column import build_input_features
+from match.layers.core import PredictionLayer
+from match.layers.utils import concat_func, reduce_sum
+from match.inputs import create_embedding_matrix, input_from_feature_columns
+from match.layers.core import Similarity
 
 
 def FM(user_feature_columns, item_feature_columns, l2_reg_embedding=1e-6, seed=1024, metric='cos'):

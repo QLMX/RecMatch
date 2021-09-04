@@ -5,18 +5,17 @@
 # @Web     : www.growai.cn
 # @Time    : 2021/8/13 12:02 上午
 
-from deeprecall.models import FM
-from tests.utils import check_model, get_xy_fd
-
+from match.models import FM
+from tests.utils import check_model, get_xy_fd, get_ml1_data
 
 def test_FM():
     model_name = "FM"
 
-    x, y, user_feature_columns, item_feature_columns = get_xy_fd(False)
+    train_data, test_data, user_feature_columns, item_feature_columns = get_ml1_data()
     model = FM(user_feature_columns, item_feature_columns, )
 
     model.compile('adam', "binary_crossentropy")
-    check_model(model, model_name, x, y,)
+    check_model(model, model_name, train_data[0], train_data[1])
 
 
 if __name__ == "__main__":

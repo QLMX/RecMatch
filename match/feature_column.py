@@ -9,8 +9,6 @@ from tensorflow.python.keras.initializers import RandomNormal, Zeros
 from tensorflow.python.keras.layers import Input, Lambda
 
 
-
-
 DEFAULT_GROUP_NAME = "default_group"
 
 
