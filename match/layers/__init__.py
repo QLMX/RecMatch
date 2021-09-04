@@ -1,8 +1,8 @@
 import tensorflow as tf
 
-from deeprecall.layers.core import PredictionLayer, Similarity
-from deeprecall.layers.sequence import SequencePoolingLayer, WeightedSequenceLayer
-from deeprecall.layers.utils import (NoMask, Hash, concat_func, reduce_mean, reduce_sum, reduce_max,
+from match.layers.core import PredictionLayer, Similarity
+from match.layers.sequence import SequencePoolingLayer, WeightedSequenceLayer
+from match.layers.utils import (NoMask, Hash, concat_func, reduce_mean, reduce_sum, reduce_max,
                                 div, softmax)
 
 
