@@ -85,7 +85,7 @@ def get_xy_fd(hash_flag=False):
     y = np.array([1, 1, 1, 1])
     return x, y, user_feature_columns, item_feature_columns
 
-def get_ml1_data(SEQ_LEN=50, embedding_dim=32):
+def get_ml1_data(SEQ_LEN=50, embedding_dim=16):
     data = read_data()
     data, user_profile, item_profile, user_item_list, feature_max_idx = encode_data(data)
     train_set, test_set = gen_data_set(data, 10)
