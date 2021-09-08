@@ -14,6 +14,8 @@ from match.inputs import create_embedding_matrix, input_from_feature_columns
 from match.layers.core import Similarity
 
 
+
+
 def FM(user_feature_columns, item_feature_columns, l2_reg_embedding=1e-6, seed=1024, metric='cos'):
     """Instantiates the FM architecture.
     :param user_feature_columns: An iterable containing user's features used by  the model.
