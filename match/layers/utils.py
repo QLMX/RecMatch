@@ -6,6 +6,7 @@
 # @Time    : 2021/8/11 14:02 上午
 import tensorflow as tf
 from tensorflow.python.keras.layers import Layer
+from tensorflow.python.keras.layers import Flatten
 
 
 class NoMask(Layer):
@@ -124,3 +125,16 @@ def softmax(logits, dim=-1, name=None):
         return tf.nn.softmax(logits, dim=dim, name=name)
     except TypeError:
         return tf.nn.softmax(logits, axis=dim, name=name)
+
+
+def combined_dnn_input(sparse_embedding_list, dense_value_list):
+    if len(sparse_embedding_list) > 0 and len(dense_value_list) > 0:
+        sparse_dnn_input = Flatten()(concat_func(sparse_embedding_list))
+        dense_dnn_input = Flatten()(concat_func(dense_value_list))
+        return concat_func([sparse_dnn_input, dense_dnn_input])
+    elif len(sparse_embedding_list) > 0:
+        return Flatten()(concat_func(sparse_embedding_list))
+    elif len(dense_value_list) > 0:
+        return Flatten()(concat_func(dense_value_list))
+    else:
+        raise NotImplementedError("dnn_feature_columns can not be empty list")
