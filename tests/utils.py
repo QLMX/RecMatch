@@ -50,17 +50,32 @@ def check_model(model, model_name, x, y, check_model_io=True):
         print(model_name + " test save load model pass!")
 
     print(model_name + " test pass!")
-    # print(1)
-    #
-    # save_model(item_embedding_model, model_name + '.user.h5')
-    # print(2)
-    #
-    # item_embedding_model = load_model(model_name + '.user.h5', custom_objects)
-    # print(3)
-    #
-    # item_embs = item_embedding_model.predict(x, batch_size=2 ** 12)
-    # print(item_embs)
-    # print("go")
+    return model
+
+
+def predict_embed(model, model_name, data, is_user=True, check_model_io=True):
+    """
+    predict test data to get result
+    Args:
+        model:
+        model_name:
+        data: user/item input
+        is_user: Whether to obtain user characteristics
+        check_model_io: save/load model or not
+    Returns: embed
+    """
+    if is_user:
+        model = Model(inputs=model.user_input, outputs=model.user_embedding)
+        save_model_name = model_name + '_user'
+    else:
+        model = Model(inputs=model.item_input, outputs=model.item_embedding)
+        save_model_name = model_name + '_item'
+    embs = model.predict(data, batch_size=2 ** 12)
+    if check_model_io:
+        save_model(model, save_model_name + '.h5')
+        np.save(save_model_name + 'data.npy', embs)
+
+    return embs
 
 
 def get_xy_fd(hash_flag=False):
