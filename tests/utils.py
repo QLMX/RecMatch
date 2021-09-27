@@ -7,6 +7,7 @@
 import os
 import numpy as np
 from tensorflow.python.keras.models import Model, load_model, save_model
+import faiss
 
 from match.layers import custom_objects
 from match.feature_column import SparseFeat, VarLenSparseFeat
@@ -53,7 +54,7 @@ def check_model(model, model_name, x, y, check_model_io=True):
     return model
 
 
-def predict_embed(model, model_name, data, is_user=True, check_model_io=True):
+def predict_embed(model, model_name, items, users, check_model_io=True):
     """
     predict test data to get result
     Args:
@@ -64,18 +65,42 @@ def predict_embed(model, model_name, data, is_user=True, check_model_io=True):
         check_model_io: save/load model or not
     Returns: embed
     """
-    if is_user:
-        model = Model(inputs=model.user_input, outputs=model.user_embedding)
-        save_model_name = model_name + '_user'
-    else:
-        model = Model(inputs=model.item_input, outputs=model.item_embedding)
-        save_model_name = model_name + '_item'
-    embs = model.predict(data, batch_size=2 ** 12)
-    if check_model_io:
-        save_model(model, save_model_name + '.h5')
-        np.save(save_model_name + 'data.npy', embs)
+    iter_model = Model(inputs=model.item_input, outputs=model.item_embedding)
+    save_item_model_name = model_name + '_item'
+    item_embs = model.predict(items, batch_size=2 ** 12)
 
-    return embs
+    user_model = Model(inputs=model.user_input, outputs=model.user_embedding)
+    save_user_model_name = model_name + '_user'
+    user_embs = model.predict(users, batch_size=2 ** 12)
+
+    if check_model_io:
+        save_model(model, save_item_model_name + '.h5')
+        save_model(model, save_user_model_name + '.h5')
+
+        np.save(save_item_model_name + 'data.npy', embs)
+        np.save(save_user_model_name + 'data.npy', embs)
+    return item_embs, user_embs
+
+def get_top_k(items_emd, user_emd, k):
+    print("the items shape is: " + items_emd.shape)
+    d = items_emd.shape(1)
+    nlist = 100     # number of cluster centers
+    m = 8             # number of bytes per vector
+    quantizer = faiss.IndexFlatL2(d)
+    index = faiss.IndexIVFPQ(quantizer, d, nlist, m, 8)
+    index.train(items_emd)
+    index.add(items_emd)
+    index.nprobe = 10  # make comparable with experiment above
+
+    sub_bacth = 1024
+    index = len(user_emd) / sub_bacth + 1
+    for i in range(index):
+        start = i * sub_bacth
+        end = (i + 1) * sub_bacth
+        D, I = index.search(user_emd[start:end], k)  # sanity check
+    result = {}
+
+
 
 
 def get_xy_fd(hash_flag=False):

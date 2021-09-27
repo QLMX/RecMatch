@@ -8,7 +8,8 @@
 from match.models import FM
 from tests.utils import check_model, get_xy_fd, get_ml1_data
 
-def train_FM():
+
+def train_FM(get_top_k=False):
     model_name = "FM"
 
     train_data, test_data, user_feature_columns, item_feature_columns = get_ml1_data()
@@ -16,11 +17,10 @@ def train_FM():
 
     model.compile('adam', "binary_crossentropy")
     model = check_model(model, model_name, train_data[0], train_data[1])
+    if get_top_k:
+        test_item_emd, test_user_emd = predict_embed(model, model_name, test_data[0], test_data[1], False)
 
-def recall_data()
 
 
 if __name__ == "__main__":
-    train_FM()
-
-    # pass
+    train_FM(True)
