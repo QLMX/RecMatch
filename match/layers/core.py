@@ -10,8 +10,6 @@ from tensorflow.python.keras.initializers import Zeros, glorot_normal
 
 from match.layers.utils import reduce_sum, div
 
-
-
 class PredictionLayer(Layer):
     """
       Arguments
