@@ -13,9 +13,6 @@ from match.layers.utils import concat_func, reduce_sum
 from match.inputs import create_embedding_matrix, input_from_feature_columns
 from match.layers.core import Similarity
 
-
-
-
 def FM(user_feature_columns, item_feature_columns, l2_reg_embedding=1e-6, seed=1024, metric='cos'):
     """Instantiates the FM architecture.
     :param user_feature_columns: An iterable containing user's features used by  the model.
@@ -25,7 +22,6 @@ def FM(user_feature_columns, item_feature_columns, l2_reg_embedding=1e-6, seed=1
     :param metric: str, ``"cos"`` for  cosine  or  ``"ip"`` for inner product
     :return: A Keras model instance.
     """
-
     embedding_matrix_dict = create_embedding_matrix(user_feature_columns + item_feature_columns, l2_reg_embedding,
                                                     seed=seed,
                                                     seq_mask_zero=True)
