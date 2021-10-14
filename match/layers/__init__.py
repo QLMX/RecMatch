@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 from match.layers.activation import Dice, activation_layer
-from match.layers.core import PredictionLayer, Similarity, DNN
+from match.layers.core import PredictionLayer, Similarity, DNN, PoolingLayer, SampledSoftmaxLayer, EmbeddingIndex
 from match.layers.sequence import SequencePoolingLayer, WeightedSequenceLayer
 from match.layers.utils import (NoMask, Hash, concat_func, reduce_mean, reduce_sum, reduce_max,
                                 div, softmax, combined_dnn_input)
@@ -13,6 +13,9 @@ custom_objects = {'tf': tf,
                   'PredictionLayer': PredictionLayer,
                   'Similarity': Similarity,
                   'DNN':DNN,
+                  'PoolingLayer':PoolingLayer,
+                  'SampledSoftmaxLayer':SampledSoftmaxLayer,
+                  'EmbeddingIndex':EmbeddingIndex,
                   'SequencePoolingLayer': SequencePoolingLayer,
                   'WeightedSequenceLayer': WeightedSequenceLayer,
                   'NoMask': NoMask,

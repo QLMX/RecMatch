@@ -138,3 +138,11 @@ def combined_dnn_input(sparse_embedding_list, dense_value_list):
         return Flatten()(concat_func(dense_value_list))
     else:
         raise NotImplementedError("dnn_feature_columns can not be empty list")
+
+def concat_func(inputs, axis=-1, mask=False):
+    if not mask:
+        inputs = list(map(NoMask(), inputs))
+    if len(inputs) == 1:
+        return inputs[0]
+    else:
+        return tf.keras.layers.Concatenate(axis=axis)(inputs)
