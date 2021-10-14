@@ -18,7 +18,6 @@ def DSSM(user_feature_columns, item_feature_columns, user_dnn_hidden_units=(64, 
          dnn_activation='tanh', dnn_use_bn=False,
          l2_reg_dnn=0, l2_reg_embedding=1e-6, dnn_dropout=0, seed=1024, metric='cos'):
     """Instantiates the Deep Structured Semantic Model architecture.
-
     :param user_feature_columns: An iterable containing user's features used by  the model.
     :param item_feature_columns: An iterable containing item's features used by  the model.
     :param user_dnn_hidden_units: list,list of positive integer or empty list, the layer number and units in each layer of user tower
@@ -31,7 +30,6 @@ def DSSM(user_feature_columns, item_feature_columns, user_dnn_hidden_units=(64, 
     :param seed: integer ,to use as random seed.
     :param metric: str, ``"cos"`` for  cosine  or  ``"ip"`` for inner product
     :return: A Keras model instance.
-
     """
 
     embedding_matrix_dict = create_embedding_matrix(user_feature_columns + item_feature_columns, l2_reg_embedding,

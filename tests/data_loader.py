@@ -45,10 +45,24 @@ def encode_data(data):
     '''
     features = ['user_id', 'movie_id', 'gender', 'age', 'occupation', 'zip']
     feature_max_id = {}
+    ori_user_ids = data['user_id'].copy().values
+    ori_movie_ids = data['movie_id'].copy().values
     for feature in features:
         lbe = LabelEncoder()
         data[feature] = lbe.fit_transform(data[feature]) + 1
         feature_max_id[feature] = data[feature].max() + 1
+
+    index_data_dict = {}
+    index_data_dict['user_id'] = {}
+    index_data_dict['movie_id'] = {}
+    pre_users_ids = data['user_id'].values
+    pre_movie_ids = data['movie_id'].values
+    for i in range(len(pre_users_ids)):
+        if pre_users_ids[i] not in index_data_dict['user_id']:
+            index_data_dict['user_id'][pre_users_ids[i]] = ori_user_ids[i]
+
+        if pre_movie_ids[i] not in index_data_dict['movie_id']:
+            index_data_dict['movie_id'][pre_movie_ids[i]] = ori_movie_ids[i]
 
     user_profile = data[["user_id", "gender", "age", "occupation", "zip"]].drop_duplicates('user_id')
     item_profile = data[["movie_id"]].drop_duplicates('movie_id')
@@ -56,7 +70,7 @@ def encode_data(data):
     user_profile.set_index("user_id", inplace=True)
     user_item_list = data.groupby("user_id")['movie_id'].apply(list)
 
-    return data, user_profile, item_profile, user_item_list, feature_max_id
+    return data, user_profile, item_profile, user_item_list, feature_max_id, index_data_dict
 
 
 def gen_data_set(data, negsample=0):
@@ -79,7 +93,7 @@ def gen_data_set(data, negsample=0):
                 for negi in range(negsample):
                     train_set.append((reviewerID, hist[::-1], neg_list[i*negsample+negi], 0, len(hist[::-1])))
             else:
-                test_set.append((reviewerID, hist[::-1], pos_list[i], 1 ,len(hist[::-1]),rating_list[i]))
+                test_set.append((reviewerID, hist[::-1], pos_list[i], 1 , len(hist[::-1]), rating_list[i]))
 
     random.shuffle(train_set)
     random.shuffle(test_set)
