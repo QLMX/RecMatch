@@ -9,7 +9,7 @@ RecMatch is the reall part of the recommended system and the advertising system,
 
 | 模型名称   | 论文地址                                                     | 年份 | 精度 | 参考                                                         |
 | ---------- | ------------------------------------------------------------ | ---- | ---- | ------------------------------------------------------------ |
-|FM|[][ICDM 2010][Factorization Machines](https://www.researchgate.net/publication/220766482_Factorization_Machines)|2010|||
+|FM|[][ICDM 2010][Factorization Machines](https://www.researchgate.net/publication/220766482_Factorization_Machines)|2010||[FM原理及在召回中的应用](https://mp.weixin.qq.com/s/ELhaAyEcqM65CbzNJKfHvQ)|
 |DSSM|[Learning Deep Structured Semantic Models for Web Search using Clickthrough Data](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/cikm2013_DSSM_fullversion.pdf)|2016|||
-| YouTubeNet | [Deep Neural Networks for YouTube Recommendations](https://www.sci-hub.ren/10.1145/2959100.2959190) | 2018 |      | [1.推荐系统召回模型之YouTubeNet](https://mp.weixin.qq.com/s/hiabDQW0qGfgPwiZdiZ_Mg) |
+| YouTubeNet | [Deep Neural Networks for YouTube Recommendations](https://www.sci-hub.ren/10.1145/2959100.2959190) | 2018 |      |  |
 

@@ -6,6 +6,9 @@
 # @Time    : 2021/10/15 12:39 上午
 from match.models import YoutubeDNN
 from tests.utils import check_model, get_xy_fd, get_ml1_data, predict_embed, get_top_k
+import os
+
+os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
 
 
 top_k = 5
